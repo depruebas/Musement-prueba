@@ -13,7 +13,6 @@
 	  {
 
 	  	$ApiMuse = ConfigClass::get("Config.api_muse");
-	  	$ApiWeather = ConfigClass::get("Config.api_weather");
 
 
 	  	$cities = json_decode( Curl::Init( $ApiMuse));
@@ -21,11 +20,15 @@
 	  	foreach ( $cities as $city)
 	  	{
 
+
 	  		$texto = "Processed city " . $city->name . " | ";
 
-	  		$forecast = json_decode( Curl::Init( str_replace( "#", $city->name, $ApiWeather)));
+	  		$ApiWeather = ConfigClass::get("Config.api_weather") .
+	  									"q=" . $city->name .
+	  									"&days=" . ConfigClass::get("Config.dias_pronostico");
 
 
+	  		$forecast = json_decode( Curl::Init( $ApiWeather));
 	  		$foreday = $forecast->forecast->forecastday;
 
 	  		if ( !empty( $foreday))
