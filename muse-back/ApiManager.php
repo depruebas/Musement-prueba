@@ -29,10 +29,12 @@
 
 
 	  		$forecast = json_decode( Curl::Init( $ApiWeather));
-	  		$foreday = $forecast->forecast->forecastday;
 
-	  		if ( !empty( $foreday))
+
+	  		if ( !empty( $forecast->forecast->forecastday))
 	  		{
+
+	  			$foreday = $forecast->forecast->forecastday;
 
 	  			for ( $i = 0; $i < count( $foreday); $i++)
 		  		{
